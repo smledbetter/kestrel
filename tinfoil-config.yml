@@ -12,7 +12,7 @@ attested-keys:
 
 containers:
   - name: "probe"
-    image: "ghcr.io/smledbetter/kestrel-probe@sha256:c4f58f3ea90d4458d0c004d2afcbe2a5b33cbbcf24171879c182200a6f9eafab"
+    image: "ghcr.io/smledbetter/kestrel-probe@sha256:d7e146b46230ff18d43268f1e56bb158150f902f5b2ba38ebbbb45ec55b6b233"
     attestation: true
     keys: [probe-signing]
 
