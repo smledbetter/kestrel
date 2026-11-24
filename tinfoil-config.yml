@@ -40,4 +40,3 @@ shim:
     - /v1/*
     - /enclave/*
     - /tinfoil/*
-    - /admin/*
