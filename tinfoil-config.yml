@@ -1,24 +1,41 @@
 # Tinfoil Container Configuration
-# For updates: edit this file, commit, run the Tinfoil Release workflow (e.g. v0.0.2)
+# For updates: edit this file, commit, run the Tinfoil Release workflow (e.g. v0.1.1)
 cvm-version: "0.14.19"
 cpus: 2
 memory: 2048
 
+networks:
+  model:
+    egress: allowlist
+    allow:
+      - inference.tinfoil.sh
+
 attested-keys:
-  - id: probe-signing
+  - id: app-signer
     key: ed25519
+    uid: 65532
+    gid: 65532
+  - id: app-channel
+    key: ecdsa-p256
     uid: 65532
     gid: 65532
 
 containers:
-  - name: "probe"
-    image: "ghcr.io/smledbetter/kestrel-probe@sha256:d7e146b46230ff18d43268f1e56bb158150f902f5b2ba38ebbbb45ec55b6b233"
+  - name: "app"
+    image: "ghcr.io/smledbetter/kestrel-app@sha256:14afb0978ecf4715c682adc9e624453e566cb30ddc4bdf0b2d59853521b7d0e0"
     attestation: true
-    keys: [probe-signing]
+    keys: [app-signer, app-channel]
+    networks: [model]
+    secrets:
+      - TINFOIL_API_KEY
 
 shim:
   upstream-port: 8080
   paths:
-    - /ping
-    - /attest
-    - /sign
+    - /
+    - /coach
+    - /ui/*
+    - /v1/*
+    - /enclave/*
+    - /tinfoil/*
+    - /admin/*
