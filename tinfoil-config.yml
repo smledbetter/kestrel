@@ -1,20 +1,12 @@
 # Tinfoil Container Configuration
 # For updates: edit this file, commit, run the Tinfoil Release workflow (e.g. v0.0.2)
-cvm-version: "0.14.10"
+cvm-version: 0.14.7
 cpus: 2
 memory: 2048
-
-attested-keys:
-  - id: probe-signing
-    key: ed25519
-    uid: 65532
-    gid: 65532
 
 containers:
   - name: "probe"
     image: "ghcr.io/smledbetter/kestrel-probe@sha256:c4f58f3ea90d4458d0c004d2afcbe2a5b33cbbcf24171879c182200a6f9eafab"
-    attestation: true
-    keys: [probe-signing]
 
 shim:
   upstream-port: 8080
